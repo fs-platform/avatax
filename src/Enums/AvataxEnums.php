@@ -31,5 +31,7 @@ class AvataxEnums
 
     const SHIPPING = 'shipping';
 
+    const US_CO = 'us_co';
+
     const ERROR = '<br/>The validated address is ';
 }

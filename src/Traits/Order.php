@@ -53,12 +53,23 @@ trait Order
 
         foreach ($parameters as &$lines){
             foreach ($lines as $key => $line){
-                if (strtolower($line['itemCode'] ?? '') == AvataxEnums::SHIPPING){
-                    $taxCode = config('avatax.shippingTaxCode');
-                } else {
-                    $taxCode = config('avatax.productsTaxCode');
+//                if (strtolower($line['itemCode'] ?? '') == AvataxEnums::SHIPPING){
+//                    $taxCode = config('avatax.shippingTaxCode');
+//                } else {
+//                    $taxCode = config('avatax.productsTaxCode');
+//                }
+                $itemCode = strtolower($line['itemCode'] ?? '');
+                switch ($itemCode) {
+                    case AvataxEnums::SHIPPING:
+                        $taxCode = config('avatax.shippingTaxCode');
+                        break;
+                    case AvataxEnums::US_CO://美国CO州新增税种
+                        $taxCode = config('avatax.usCoTaxCode');
+                        break;
+                    default:
+                        $taxCode = config('avatax.productsTaxCode');
+                        break;
                 }
-
                 $lines[$key] = [
                     'amount'   => (float) $line['amount'] ?? 0 * (int) $line['quantity'] ?? 1,
                     'quantity' => $line['quantity'] ?? 1,
