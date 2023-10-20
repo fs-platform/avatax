@@ -11,6 +11,14 @@ return [
 
     'productsTaxCode' => env('PRODUCTS_TAX_CODE',''),
 
+    'softwareProductTaxCode' => env('SOFTWARE_PRODUCT_TAX_CODE', ''),
+
+    'softwareProduct' => [],
+
+    'softwareServiceTaxCode' => env('SOFTWARE_SERVICE_TAX_CODE', ''),
+
+    'softwareService' => [],
+
     'shipFromAddress' => [
         'line1'      => env('AVATAX_SHIP_FROM_ADDRESS_LINE1','') ,
         'city'       => env('AVATAX_SHIP_FROM_ADDRESS_CITY',''),
