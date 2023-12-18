@@ -63,18 +63,21 @@ trait Order
                     case AvataxEnums::SHIPPING:
                         $taxCode = config('avatax.shippingTaxCode');
                         break;
-                    case in_array((int)$itemCode, config('avatax.softwareProduct'))://软件产品税率
-                        $taxCode = config('avatax.softwareProductTaxCode');
-                        break;
-                    case in_array((int)$itemCode, config('avatax.softwareService'))://软件技术服务产品税率
-                        $taxCode = config('avatax.softwareServiceTaxCode');
-                        break;
+//                    case in_array((int)$itemCode, config('avatax.softwareProduct'))://软件产品税率
+//                        $taxCode = config('avatax.softwareProductTaxCode');
+//                        break;
+//                    case in_array((int)$itemCode, config('avatax.softwareService'))://软件技术服务产品税率
+//                        $taxCode = config('avatax.softwareServiceTaxCode');
+//                        break;
                     case AvataxEnums::US_CO://美国CO州新增税种
                         $taxCode = config('avatax.usCoTaxCode');
                         break;
                     default:
                         $taxCode = config('avatax.productsTaxCode');
                         break;
+                }
+                if (isset($line['picoTax']) && !empty($line['picoTax'])) {
+                    $taxCode = $line['picoTax'];
                 }
                 $lines[$key] = [
                     'amount'   => (float) $line['amount'] ?? 0 * (int) $line['quantity'] ?? 1,
