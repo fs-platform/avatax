@@ -33,5 +33,7 @@ class AvataxEnums
 
     const US_CO = 'us_co';
 
+    const CANADA_INSURANCE = "canada_insurance";
+
     const ERROR = '<br/>The validated address is ';
 }

@@ -72,6 +72,9 @@ trait Order
                     case AvataxEnums::US_CO://美国CO州新增税种
                         $taxCode = config('avatax.usCoTaxCode');
                         break;
+                    case AvataxEnums::CANADA_INSURANCE:
+                        $taxCode = config("avatax.canadaInsuranceTaxCode");
+                        break;
                     default:
                         $taxCode = config('avatax.productsTaxCode');
                         break;
@@ -79,6 +82,7 @@ trait Order
                 if (isset($line['picoTax']) && !empty($line['picoTax'])) {
                     $taxCode = $line['picoTax'];
                 }
+
                 $lines[$key] = [
                     'amount'   => (float) $line['amount'] ?? 0 * (int) $line['quantity'] ?? 1,
                     'quantity' => $line['quantity'] ?? 1,
@@ -86,6 +90,14 @@ trait Order
                     'taxCode'  => $taxCode,
                     'number'   => $key +1
                 ];
+
+                if (isset($line['category']) && !empty($line['category'])) {
+                    $lines[$key]["category"] = $line['category'];
+                }
+                
+                if (isset($line['description']) && !empty($line['description'])) {
+                    $lines[$key]["description"] = $line['description'];
+                }
             }
         }
 

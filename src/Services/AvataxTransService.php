@@ -133,19 +133,34 @@ class AvataxTransService
     public function withLines(array $lines) : object
     {
         foreach ($lines as $key => $line){
-            $this->build->withLine(
-                $line['amount'],
-                $line['quantity'],
-                $line['itemCode'],
-                $line['taxCode'],
-                $line['number']
-            );
-
-            if (isset($line['description']) && !empty($line['description'])){
-                $this->build->withLineDescription(mb_substr($line['description'],0,60));
+            if (isset($line['category']) && !empty($line['category'])) {
+                // 计算关税
+                $l = [
+                    [
+                        'number'      => $line['number'],
+                        'quantity'    => $line['quantity'],
+                        'amount'      => $line['amount'],
+                        'taxCode'     => $line['taxCode'],
+                        'itemCode'    => $line['itemCode'],
+                        'description' => isset($line['description']) && !empty($line['description']) ? mb_substr($line['description'], 0, 60) : "",
+                        'category'    => $line['category'],
+                    ],
+                ];
+                $this->build->withLineItem($l);
+            } else {
+                $this->build->withLine(
+                    $line['amount'],
+                    $line['quantity'],
+                    $line['itemCode'],
+                    $line['taxCode'],
+                    $line['number']
+                );
+    
+                if (isset($line['description']) && !empty($line['description'])){
+                    $this->build->withLineDescription(mb_substr($line['description'],0,60));
+                }
             }
         }
-
         return $this;
     }
 
