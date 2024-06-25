@@ -232,6 +232,10 @@ class AvataxTransService
             'salespersonCode' => [
                 'method'  => 'withSalespersonCode',
                 'type'    => 'int'
+            ],
+            'isSellerImporterOfRecord' => [
+                'method'  => 'withSellerIsImporterOfRecord',
+                'type'    => 'bool'
             ]
         ];
     }

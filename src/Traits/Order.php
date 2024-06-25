@@ -33,6 +33,7 @@ trait Order
             'purchaseOrderNo'       => $parameters['purchaseOrderNo'] ?? '',
             'description'           => isset($parameters['description']) ? mb_substr($parameters['description'],0,60)  : '',
             'salespersonCode'       => $parameters['salespersonCode'] ?? AvataxEnums::ADMIN_ID,
+            'isSellerImporterOfRecord' => $parameters['isSellerImporterOfRecord'] ?? false,
         ];
 
         return $this;
