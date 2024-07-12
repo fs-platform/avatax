@@ -68,15 +68,9 @@ class AvataxClientService
                 $clientParams['licenseKey'],
             );
 
-            $ping = $client->ping();
+            $this->client = $client;
 
-            if (is_object($ping) && isset($ping->authenticated) && $ping->authenticated == 'true'){
-                $this->client = $client;
-
-                return $this->client;
-            }
-
-            throw new AvataxException('Tax calculation failure');
+            return $this->client;
         }
 
         return $this->client;
